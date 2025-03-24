@@ -20,7 +20,7 @@ import {
 import { Parser } from './parser'
 import { URLBuilder } from './helper'
 
-const MW_DOMAIN = 'https://www.mangaworld.ac'
+const MW_DOMAIN = 'https://www.mangaworld.nz'
 
 export const MangaWorldInfo: SourceInfo = {
     version: '3.0.1',
