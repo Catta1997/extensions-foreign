@@ -464,7 +464,7 @@ exports.MangaWorld = exports.MangaWorldInfo = void 0;
 const types_1 = require("@paperback/types");
 const parser_1 = require("./parser");
 const helper_1 = require("./helper");
-const MW_DOMAIN = 'https://www.mangaworld.ac';
+const MW_DOMAIN = 'https://www.mangaworld.nz';
 exports.MangaWorldInfo = {
     version: '3.0.1',
     name: 'MangaWorld',
@@ -690,7 +690,7 @@ class Parser {
                         .find('a')
                         .each((_, e) => {
                         label_arr.push($(e).text()) &
-                            id_arr.push($(e).attr('href')?.replace('https://www.mangaworld.in/archive?genre=', '') ?? '');
+                            id_arr.push($(e).attr('href')?.replace('https://www.mangaworld.nz/archive?genre=', '') ?? '');
                     });
                     break;
                 case 2:
