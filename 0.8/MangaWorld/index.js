@@ -514,9 +514,9 @@ class MangaWorld {
         const $ = this.cheerio.load(response.data);
         return this.parser.parseChapters($, mangaId, this);
     }
-    async getChapterDetails(mangaId, chapterId) {
+    async getChapterDetails(mangaId, chapterId, name) {
         const request = App.createRequest({
-            url: `${this.baseUrl}/manga/${mangaId}/read/${chapterId}/?style=list`,
+            url: `${this.baseUrl}/manga/${mangaId}/${name}/read/${chapterId}/?style=list`,
             method: 'GET',
         });
         const response = await this.requestManager.schedule(request, this.RETRIES);
