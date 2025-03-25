@@ -1,14 +1,14 @@
 {
-  "name": "netskys-extensions",
-  "version": "0.0.0",
-  "repositoryName": "Netsky's Extensions (0.8)",
-  "description": "Netsky's extensions for 0.8!",
+  "name": "nmn-extension-foreign-0.8",
+  "version": "2.1.0",
+  "repositoryName": "Fixed NmN's Foreign Extensions (0.8)",
+  "description": "Repo for non-english manga sources. (0.8)",
   "scripts": {
     "bundle": "npx paperback bundle",
     "serve": "npx paperback serve",
     "test": "npx paperback test"
   },
-  "author": "Netsky",
+  "author": "NmN fixed by Catta1997",
   "license": "GPL-3.0-or-later",
   "devDependencies": {
     "@tsconfig/recommended": "^1.0.7",
