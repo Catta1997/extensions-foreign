@@ -1,26 +1,26 @@
 {
-  "name": "nmn-extension-foreign-0.8",
-  "repositoryName": "NmN's Foreign Extensions (0.8)",
-  "version": "2.0.0",
-  "description": "Repo for non-english manga sources. (0.8)",
-  "main": "lib/index.js",
+  "name": "netskys-extensions",
+  "version": "0.0.0",
+  "repositoryName": "Netsky's Extensions (0.8)",
+  "description": "Netsky's extensions for 0.8!",
   "scripts": {
-    "migrate": "npx paperback migrate",
     "bundle": "npx paperback bundle",
     "serve": "npx paperback serve",
-    "dev": "npx nodemon --watch \"**/*.ts\" --ext \"js ts\" --exec \"npm run serve\""
+    "test": "npx paperback test"
   },
-  "author": "NmN",
+  "author": "Netsky",
   "license": "GPL-3.0-or-later",
   "devDependencies": {
-    "@typescript-eslint/eslint-plugin": "^4.25.0",
-    "@typescript-eslint/parser": "^4.25.0",
-    "eslint": "^7.27.0",
+    "@tsconfig/recommended": "^1.0.7",
+    "@typescript-eslint/eslint-plugin": "^5.62.0",
+    "@typescript-eslint/parser": "^5.62.0",
+    "eslint": "^7.32.0",
     "eslint-plugin-modules-newline": "^0.0.6",
-    "typescript": "^4.3.2"
+    "typescript": "^4.9.5"
   },
   "dependencies": {
-    "@paperback/toolchain": "^0.8.0-alpha.38",
-    "@paperback/types": "^0.8.0-alpha.38"
+    "@paperback/toolchain": "^0.8.7",
+    "@paperback/types": "^0.8.7",
+    "cheerio": "^1.0.0"
   }
 }
