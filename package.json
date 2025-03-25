@@ -3,15 +3,12 @@
   "repositoryName": "NmN's Foreign Extensions (0.8)",
   "version": "2.0.0",
   "description": "Repo for non-english manga sources. (0.8)",
-  "main": "index.js",
+  "main": "lib/index.js",
   "scripts": {
-    "bundle": "gulp bundle --gulpfile node_modules/paperback-extensions-common/src/repo-gulpfile.js",
+    "migrate": "npx paperback migrate",
+    "bundle": "npx paperback bundle",
     "serve": "npx paperback serve",
-    "debug": "npx paperback logcat --ip=192.168.29.226",
-    "test": "node_modules/.bin/mocha --timeout 300000 -r ts-node/register src/**/*.test.ts",
-    "start": "tsc && node dist/api.js",
-    "build": "tsc",
-    "coverage": "nyc -r lcov -e .ts -x \"*.test.ts\" npm run test"
+    "dev": "npx nodemon --watch \"**/*.ts\" --ext \"js ts\" --exec \"npm run serve\""
   },
   "author": "NmN",
   "license": "GPL-3.0-or-later",
