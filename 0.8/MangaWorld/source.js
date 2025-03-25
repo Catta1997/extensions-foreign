@@ -539,7 +539,7 @@ class MangaWorld {
 
     async getChapterDetails(mangaId, chapterId) {
         const request = App.createRequest({
-            url: `${this.baseUrl}/manga/${mangaId}/read/${chapterId}/?style=list`,
+            url: `${chapterId}/?style=list`,
             method: 'GET',
         });
         const response = await this.requestManager.schedule(request, this.RETRIES);
