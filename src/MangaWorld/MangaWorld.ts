@@ -23,9 +23,9 @@ import { URLBuilder } from './helper'
 const MW_DOMAIN = 'https://www.mangaworld.nz'
 
 export const MangaWorldInfo: SourceInfo = {
-    version: '3.0.1',
+    version: '3.0.2',
     name: 'MangaWorld',
-    description: 'Extension that pulls manga from MangaWorld (0.8).',
+    description: 'Fixed Extension that pulls manga from MangaWorld (0.8).',
     author: 'NmN',
     authorWebsite: 'http://github.com/pandeynmm',
     icon: 'icon.png',
@@ -65,19 +65,43 @@ export class MangaWorld implements SearchResultsProviding, MangaProviding, Chapt
         return this.parser.parseMangaDetails($, mangaId)
     }
 
-    async getChapters(mangaId: string): Promise<Chapter[]> {
+    async getChapters(mangaId) {
         const request = App.createRequest({
             url: `${this.baseUrl}/manga/${mangaId}`,
             method: 'GET',
-        })
-        const response = await this.requestManager.schedule(request, this.RETRIES)
-        const $ = this.cheerio.load(response.data)
-        return this.parser.parseChapters($, mangaId, this)
+            followRedirect: false // Prevent auto-following redirects
+        });
+
+        const response = await this.requestManager.schedule(request, this.RETRIES);
+
+        let redirectedUrl = response.headers?.location; // Check for redirect location
+
+        if (!redirectedUrl) {
+            // If there's no redirect, assume the original URL is correct
+            redirectedUrl = `${this.baseUrl}/manga/${mangaId}`;
+        }
+
+        // Extract mangaId and mangaName correctly
+        const match = redirectedUrl.match(/\/manga\/([^/]+)\/([^/?#]+)/);
+        if (match) {
+            mangaId = match[1]; // Update mangaId
+        }
+
+        // Fetch the actual manga page using the correct mangaId
+        const newRequest = App.createRequest({
+            url: `${this.baseUrl}/manga/${mangaId}`,
+            method: 'GET',
+        });
+
+        const newResponse = await this.requestManager.schedule(newRequest, this.RETRIES);
+        const $ = this.cheerio.load(newResponse.data);
+
+        return this.parser.parseChapters($, mangaId, this);
     }
 
     async getChapterDetails(mangaId: string, chapterId: string): Promise<ChapterDetails> {
         const request = App.createRequest({
-            url: `${this.baseUrl}/manga/${mangaId}/read/${chapterId}/?style=list`,
+            url: `${chapterId}/?style=list`,
             method: 'GET',
         })
         const response = await this.requestManager.schedule(request, this.RETRIES)
