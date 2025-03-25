@@ -507,11 +507,33 @@ class MangaWorld {
     }
     async getChapters(mangaId) {
         const request = App.createRequest({
-            url: ${this.baseUrl}/manga/${mangaId},
+            url: `${this.baseUrl}/manga/${mangaId}`,
+            method: 'GET',
+            followRedirect: false // Prevent auto-following redirects
+        });
+
+        const response = await this.requestManager.schedule(request, this.RETRIES);
+
+        // Extract the redirected URL (if there was a redirect)
+        const redirectedUrl = response.headers.location || response.request.res.responseUrl;
+
+        if (redirectedUrl) {
+            // Extract mangaId and mangaName correctly
+            const match = redirectedUrl.match(/\/manga\/([^/]+)\/([^/?#]+)/);
+            if (match) {
+                mangaId = match[1]; // Update mangaId
+            }
+        }
+
+        // Fetch the actual manga page using the correct mangaId
+        const newRequest = App.createRequest({
+            url: `${this.baseUrl}/manga/${mangaId}`,
             method: 'GET',
         });
-        const response = await this.requestManager.schedule(request, this.RETRIES);
-        const $ = this.cheerio.load(response.data);
+
+        const newResponse = await this.requestManager.schedule(newRequest, this.RETRIES);
+        const $ = this.cheerio.load(newResponse.data);
+
         return this.parser.parseChapters($, mangaId, this);
     }
 
