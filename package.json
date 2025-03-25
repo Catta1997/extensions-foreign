@@ -16,30 +16,14 @@
   "author": "NmN",
   "license": "GPL-3.0-or-later",
   "devDependencies": {
-    "@tsconfig/recommended": "^1.0.1",
-    "@types/cheerio": "^0.22.35",
-    "@types/mocha": "^10.0.10",
-    "@typescript-eslint/eslint-plugin": "^5.1.0",
-    "@typescript-eslint/parser": "^5.57.1",
+    "@typescript-eslint/eslint-plugin": "^4.25.0",
+    "@typescript-eslint/parser": "^4.25.0",
     "eslint": "^7.27.0",
     "eslint-plugin-modules-newline": "^0.0.6",
-    "mocha": "^11.1.0",
-    "nyc": "^17.1.0",
-    "typescript": "^4.9.5"
+    "typescript": "^4.3.2"
   },
   "dependencies": {
-    "@paperback/toolchain": "0.8.0-alpha.47",
-    "@paperback/types": "0.8.0-alpha.47",
-    "@types/crypto-js": "^4.1.1",
-    "chai": "^5.2.0",
-    "chai-as-promised": "^8.0.1",
-    "cheerio": "^1.0.0",
-    "crypto-js": "^4.1.1",
-    "entities": "^4.4.0",
-    "nodemon": "^2.0.22",
-    "paperback-extensions-common": "^5.0.0-alpha.7",
-    "ts-mocha": "^11.1.0",
-    "ts-node": "^10.2.1",
-    "tsify": "^5.0.4"
+    "@paperback/toolchain": "^0.8.0-alpha.38",
+    "@paperback/types": "^0.8.0-alpha.38"
   }
 }
