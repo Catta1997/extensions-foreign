@@ -514,15 +514,17 @@ class MangaWorld {
 
         const response = await this.requestManager.schedule(request, this.RETRIES);
 
-        // Extract the redirected URL (if there was a redirect)
-        const redirectedUrl = response.headers.location || response.request.res.responseUrl;
+        let redirectedUrl = response.headers?.location; // Check for redirect location
 
-        if (redirectedUrl) {
-            // Extract mangaId and mangaName correctly
-            const match = redirectedUrl.match(/\/manga\/([^/]+)\/([^/?#]+)/);
-            if (match) {
-                mangaId = match[1]; // Update mangaId
-            }
+        if (!redirectedUrl) {
+            // If there's no redirect, assume the original URL is correct
+            redirectedUrl = `${this.baseUrl}/manga/${mangaId}`;
+        }
+
+        // Extract mangaId and mangaName correctly
+        const match = redirectedUrl.match(/\/manga\/([^/]+)\/([^/?#]+)/);
+        if (match) {
+            mangaId = match[1]; // Update mangaId
         }
 
         // Fetch the actual manga page using the correct mangaId
@@ -536,6 +538,7 @@ class MangaWorld {
 
         return this.parser.parseChapters($, mangaId, this);
     }
+
 
     async getChapterDetails(mangaId, chapterId) {
         const request = App.createRequest({
