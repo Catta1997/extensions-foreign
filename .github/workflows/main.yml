@@ -1,9 +1,6 @@
 name: Bundle and Publish Sources
 on: 
-  push:
-    branches:
-      - '**'
-      - '!main'
+  workflow_dispatch:
 jobs:
   build:
     name: Bundle and Publish Sources
