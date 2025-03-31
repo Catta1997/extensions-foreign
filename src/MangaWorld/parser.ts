@@ -75,7 +75,8 @@ export class Parser {
         const arrChapters = $('.chapter').toArray().reverse()
         for (const item of arrChapters) {
             const href = $('a', item).attr('href') ?? ''
-            const id = '67ea7c6f8e61d73140b90f05'
+            const match = href.match(/\/read\/([a-zA-Z0-9]+)/)
+            const id = match ? match[1] : ''
             const name = $('a', item).attr('title') ?? ''
             const chapNum = Number($('.d-inline-block', item).text().split(' ')[1]) ?? -1
 
@@ -101,6 +102,8 @@ export class Parser {
             if (!imageUrl) continue
             pages.push(imageUrl.trim())
         }
+        id = '4012/masamune-kun-no-revenge-anthology-comic'
+        mangaId = '67eafb8e3db8c030bf86756a'
         return App.createChapterDetails({
             id,
             mangaId,
