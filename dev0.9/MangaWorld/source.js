@@ -744,9 +744,9 @@ class Parser {
         const chapters = [];
         const arrChapters = $('.chapter').toArray().reverse();
         for (const item of arrChapters) {
-            const tmp = $('a', item).attr('href')?.replace(`${source.baseUrl}/manga/${mangaId}/`, '') ?? '';
-            const parts = tmp.split('/');
-            const id = parts.pop() ?? '';
+            const href = $('a', item).attr('href') ?? '';
+            const match = href.match(/\/read\/([a-zA-Z0-9]+)/);
+            const id = match ? match[1] : '';
             const name = $('a', item).attr('title') ?? '';
             const chapNum = Number($('.d-inline-block', item).text().split(' ')[1]) ?? -1;
             chapters.push(App.createChapter({
