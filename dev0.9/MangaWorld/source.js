@@ -773,7 +773,7 @@ class Parser {
                 continue;
             pages.push(imageUrl.trim());
         }
-        mangaId = `4012/masamune-kun-no-revenge-anthology-comic----- ${mangaId}`;
+        mangaId = `4012/masamune-kun-no-revenge-anthology-comic----- ${mangaId}----${id}`;
         id = `67eafb8e3db8c030bf86756a-----${id}`;
         return App.createChapterDetails({
             id,
