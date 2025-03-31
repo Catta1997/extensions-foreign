@@ -68,25 +68,16 @@ export class MangaWorld implements SearchResultsProviding, MangaProviding, Chapt
     async getChapters(mangaId: string): Promise<Chapter[]> {
         const request = App.createRequest({
             url: `${this.baseUrl}/manga/${mangaId}`,
-            method: 'GET',
-            followRedirect: false
-        })
-        const response = await this.requestManager.schedule(request, this.RETRIES)
-        let redirectedUrl = response.headers?.location
-        if (!redirectedUrl) {
-            redirectedUrl = `${this.baseUrl}/manga/${mangaId}`
-        }
-        const match = redirectedUrl.match(/\/manga\/([^/]+)\/([^/?#]+)/)
-        if (match) {
-            mangaId = match[1]
-        }
-        const newRequest = App.createRequest({
-            url: `${this.baseUrl}/manga/${mangaId}`,
             method: 'GET'
         })
-        const newResponse = await this.requestManager.schedule(newRequest, this.RETRIES)
-        const $ = this.cheerio.load(newResponse.data)
-        return this.parser.parseChapters($, mangaId.replace('/','-'), this)
+        const response = await this.requestManager.schedule(request, this.RETRIES)
+        const finalUrl = response.request?.url || `${this.baseUrl}/manga/${mangaId}`
+        const match = finalUrl.match(/\/manga\/([^/]+)\/([^/?#]+)/)
+        if (match) {
+            mangaId = match[1] as string
+        }
+        const $ = this.cheerio.load(response.data)
+        return this.parser.parseChapters($, mangaId, this)
     }
 
     async getChapterDetails(mangaId: string, chapterId: string): Promise<ChapterDetails> {
