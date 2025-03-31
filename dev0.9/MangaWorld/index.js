@@ -742,6 +742,7 @@ class Parser {
         });
     }
     parseChapters($, mangaId, source) {
+        console.log(`Parse chapter details for ${mangaId}`);
         const chapters = [];
         const arrChapters = $('.chapter').toArray().reverse();
         for (const item of arrChapters) {
@@ -761,6 +762,7 @@ class Parser {
         return chapters;
     }
     parseChapterDetails($, mangaId, id) {
+        console.log(`Getting chapter details for ${mangaId} - ${id} - /manga/${mangaId}/read/${id}/?style=list`);
         const pages = [];
         for (const item of $('.col-12.text-center.position-relative img').toArray()) {
             const imageUrl = $(item).attr('src');
