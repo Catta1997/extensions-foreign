@@ -509,6 +509,7 @@ class MangaWorld {
         const request = App.createRequest({
             url: `${this.baseUrl}/manga/${mangaId}`,
             method: 'GET',
+            followRedirect: false
         });
         const response = await this.requestManager.schedule(request, this.RETRIES);
         let redirectedUrl = response.headers?.location;
@@ -528,7 +529,6 @@ class MangaWorld {
         return this.parser.parseChapters($, mangaId.replace('/', '-'), this);
     }
     async getChapterDetails(mangaId, chapterId) {
-        console.log(`Getting chapter details for ${mangaId} - ${chapterId} - ${this.baseUrl}/manga/${mangaId}/read/${chapterId}/?style=list`);
         const request = App.createRequest({
             url: `${this.baseUrl}/manga/${mangaId}/read/${chapterId}/?style=list`,
             method: 'GET',
@@ -749,7 +749,8 @@ class Parser {
         const arrChapters = $('.chapter').toArray().reverse();
         for (const item of arrChapters) {
             const href = $('a', item).attr('href') ?? '';
-            const match = href.match(/\/read\/([a-zA-Z0-9]+)/);
+            const regex = new RegExp(`/read/${mangaId}/([a-zA-Z0-9]+)`);
+            const match = href.match(regex);
             const id = match ? match[1] : '';
             const name = $('a', item).attr('title') ?? '';
             const chapNum = Number($('.d-inline-block', item).text().split(' ')[1]) ?? -1;
