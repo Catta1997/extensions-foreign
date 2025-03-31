@@ -92,6 +92,8 @@ export class MangaWorld implements SearchResultsProviding, MangaProviding, Chapt
     }
 
     async getChapterDetails(mangaId: string, chapterId: string): Promise<ChapterDetails> {
+        console.log(
+            `Getting chapter details for ${mangaId} - ${chapterId} - ${this.baseUrl}/manga/${mangaId}/read/${chapterId}/?style=list`)
         const request = App.createRequest({
             url: `${this.baseUrl}/manga/${mangaId}/read/${chapterId}/?style=list`,
             method: 'GET',
