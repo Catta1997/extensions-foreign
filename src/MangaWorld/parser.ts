@@ -69,6 +69,8 @@ export class Parser {
     }
 
     parseChapters($: any, mangaId: string, source: any): Chapter[] {
+        console.log(
+            `Parse chapter details for ${mangaId}`)
         const chapters: Chapter[] = []
         const arrChapters = $('.chapter').toArray().reverse()
         for (const item of arrChapters) {
@@ -92,6 +94,8 @@ export class Parser {
     }
 
     parseChapterDetails($: any, mangaId: string, id: string): ChapterDetails {
+        console.log(
+            `Getting chapter details for ${mangaId} - ${id} - /manga/${mangaId}/read/${id}/?style=list`)
         const pages: string[] = []
         for (const item of $('.col-12.text-center.position-relative img').toArray()) {
             const imageUrl = $(item).attr('src')
