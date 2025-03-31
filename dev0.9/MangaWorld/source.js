@@ -735,7 +735,7 @@ class Parser {
         for (const item of arrChapters) {
             const href = $('a', item).attr('href') ?? '';
             const parts = href.split('/');
-            const id = parts.pop();
+            const id = 5;
             const name = $('a', item).attr('title') ?? '';
             const chapNum = Number($('.d-inline-block', item).text().split(' ')[1]) ?? -1;
             chapters.push(App.createChapter({
