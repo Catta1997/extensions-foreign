@@ -124,8 +124,8 @@ export class Parser {
     parseSearchResults($: any): PartialSourceManga[] {
         const results: PartialSourceManga[] = []
         for (const item of $('.comics-grid .entry').toArray()) {
-            const id = (($('a', item).attr('href') ?? '').match(/[0-9]+\/[a-zA-Z0-9\-]+/i) ?? ['null'])[0] ?? ''
-
+            const tmp = (($('a', item).attr('href') ?? '').match(/[0-9]+\/[a-zA-Z0-9\-]+/i) ?? ['null'])[0] ?? ''
+            const id = tmp.split('/')[0] ?? ''
             const title = $('a', item).attr('title') ?? ''
             const image = $('a img', item).attr('src') ?? ''
             
@@ -170,7 +170,8 @@ export class Parser {
         const arrTrending = $('.entry.vertical').toArray()
 
         for (const obj of arrLatest) {
-            const id = (($('a', obj).attr('href') ?? '').match(/[0-9]+\/[a-zA-Z0-9\-]+/i) ?? ['null'])[0] ?? ''
+            const tmp = (($('a', obj).attr('href') ?? '').match(/[0-9]+\/[a-zA-Z0-9\-]+/i) ?? ['null'])[0] ?? ''
+            const id = tmp.split('/')[0] ?? ''
             const title = $('a', obj).attr('title') ?? ''
             const image = $('a img', obj).attr('src') ?? ''
             const sub = $('.d-flex.flex-wrap.flex-row a', obj).first().attr('title') ?? ''
@@ -188,7 +189,8 @@ export class Parser {
 
         let i = 0
         for (const obj of arrHotTitle) {
-            const id = (($('a', obj).attr('href') ?? '').match(/[0-9]+\/[a-zA-Z0-9\-]+/i) ?? ['null'])[0] ?? ''
+            const tmp = (($('a', obj).attr('href') ?? '').match(/[0-9]+\/[a-zA-Z0-9\-]+/i) ?? ['null'])[0] ?? ''
+            const id = tmp.split('/')[0] ?? ''
             const image = $('.img-fluid', obj).attr('src') ?? ''
             const title = $('.name', obj).text().trim()
             if (i == 10) break
@@ -206,7 +208,8 @@ export class Parser {
         section2.items = hotTitles
         sectionCallback(section2)
         for (const obj of arrTrending) {
-            const id = (($('a', obj).attr('href') ?? '').match(/[0-9]+\/[a-zA-Z0-9\-]+/i) ?? ['null'])[0] ?? ''
+            const tmp = (($('a', obj).attr('href') ?? '').match(/[0-9]+\/[a-zA-Z0-9\-]+/i) ?? ['null'])[0] ?? ''
+            const id = tmp.split('/')[0] ?? ''
             const image = $('a img', obj).attr('src') ?? ''
             const title = $('.manga-title', obj).text().trim()
             trending.push(
@@ -226,8 +229,8 @@ export class Parser {
         const more: PartialSourceManga[] = []
         const arrLatest = $('.col-sm-12.col-md-8.col-xl-9 .comics-grid .entry').toArray()
         for (const obj of arrLatest) {
-            const id = (($('a', obj).attr('href') ?? '').match(/[0-9]+\/[a-zA-Z0-9\-]+/i) ?? ['null'])[0] ?? ''
-
+            const tmp = (($('a', obj).attr('href') ?? '').match(/[0-9]+\/[a-zA-Z0-9\-]+/i) ?? ['null'])[0] ?? ''
+            const id = tmp.split('/')[0] ?? ''
             const title = $('a', obj).attr('title') ?? ''
             const image = $('a img', obj).attr('src') ?? ''
             const sub = $('.d-flex.flex-wrap.flex-row a', obj).first().attr('title') ?? ''
