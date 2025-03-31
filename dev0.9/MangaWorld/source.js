@@ -690,7 +690,7 @@ class Parser {
                         .find('a')
                         .each((_, e) => {
                         label_arr.push($(e).text()) &
-                            id_arr.push($(e).attr('href')?.replace('https://www.mangaworld.in/archive?genre=', '') ?? '');
+                            id_arr.push($(e).attr('href')?.replace('https://www.mangaworld.nz/archive?genre=', '') ?? '');
                     });
                     break;
                 case 2:
@@ -733,8 +733,7 @@ class Parser {
         const chapters = [];
         const arrChapters = $('.chapter').toArray().reverse();
         for (const item of arrChapters) {
-            const tmp = $('a', item).attr('href')?.replace(`${source.baseUrl}/manga/${mangaId}/read/`, '') ?? '';
-            const id = tmp.split('/')[0] ?? '';
+            const id = $('a', item).attr('href')?.replace(`${source.baseUrl}/manga/${mangaId}/read/`, '') ?? '';
             const name = $('a', item).attr('title') ?? '';
             const chapNum = Number($('.d-inline-block', item).text().split(' ')[1]) ?? -1;
             chapters.push(App.createChapter({
