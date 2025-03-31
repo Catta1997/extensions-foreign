@@ -102,8 +102,8 @@ export class Parser {
             if (!imageUrl) continue
             pages.push(imageUrl.trim())
         }
-        id = '4012/masamune-kun-no-revenge-anthology-comic'
-        mangaId = '67eafb8e3db8c030bf86756a'
+        mangaId = `4012/masamune-kun-no-revenge-anthology-comic----- ${mangaId}`
+        id = `67eafb8e3db8c030bf86756a-----${id}`
         return App.createChapterDetails({
             id,
             mangaId,
