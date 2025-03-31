@@ -75,8 +75,7 @@ export class Parser {
         const arrChapters = $('.chapter').toArray().reverse()
         for (const item of arrChapters) {
             const href = $('a', item).attr('href') ?? ''
-            const match = href.match(/\/read\/([a-zA-Z0-9]+)/)
-            const id = match ? match[1] : ''
+            const id = '67ea7c6f8e61d73140b90f05'
             const name = $('a', item).attr('title') ?? ''
             const chapNum = Number($('.d-inline-block', item).text().split(' ')[1]) ?? -1
 

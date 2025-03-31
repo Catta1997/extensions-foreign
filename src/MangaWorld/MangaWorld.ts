@@ -85,6 +85,7 @@ export class MangaWorld implements SearchResultsProviding, MangaProviding, Chapt
         if (match) {
             newID = match[1]
         }
+        console.log(`Getting chapters for  ${mangaId} ${newID} - ${redirectedUrl}`)
         const newResponse = await this.requestManager.schedule(request, this.RETRIES)
         const $ = this.cheerio.load(newResponse.data)
 
