@@ -72,7 +72,7 @@ export class Parser {
         const chapters: Chapter[] = []
         const arrChapters = $('.chapter').toArray().reverse()
         for (const item of arrChapters) {
-            const tmp = $('a', item).attr('href')?.replace(`${source.baseUrl}/manga/`, '') ?? ''
+            const tmp = $('a', item).attr('href')?.replace(`${source.baseUrl}/manga/${mangaId}/`, '') ?? ''
             const parts = tmp.split('/')
             const id = parts.pop() ?? ''
             const name = $('a', item).attr('title') ?? ''
