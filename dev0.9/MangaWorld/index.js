@@ -526,6 +526,7 @@ class MangaWorld {
         return this.parser.parseChapters($, newID, this);
     }
     async getChapterDetails(mangaId, chapterId) {
+        console.log(`Getting chapter details for ${mangaId} - ${chapterId} - ${this.baseUrl}/manga/${mangaId}/read/${chapterId}/?style=list`);
         const request = App.createRequest({
             url: `${this.baseUrl}/manga/${mangaId}/read/${chapterId}/?style=list`,
             method: 'GET',
