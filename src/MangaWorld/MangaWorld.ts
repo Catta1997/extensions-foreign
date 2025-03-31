@@ -69,10 +69,26 @@ export class MangaWorld implements SearchResultsProviding, MangaProviding, Chapt
         const request = App.createRequest({
             url: `${this.baseUrl}/manga/${mangaId}`,
             method: 'GET',
+            followRedirect: false
         })
-        const response = await this.requestManager.schedule(request, this.RETRIES)
-        const $ = this.cheerio.load(response.data)
-        return this.parser.parseChapters($, mangaId, this)
+
+        const response = await this.requestManager.schedule(request, this.RETRIES);
+
+        let redirectedUrl = response.headers?.location
+
+        if (!redirectedUrl) {
+            redirectedUrl = `${this.baseUrl}/manga/${mangaId}`
+        }
+
+        const match = redirectedUrl.match(/\/manga\/([^/]+)\/([^/?#]+)/)
+        let newID = mangaId
+        if (match) {
+            newID = match[1]
+        }
+        const newResponse = await this.requestManager.schedule(request, this.RETRIES)
+        const $ = this.cheerio.load(newResponse.data)
+
+        return this.parser.parseChapters($, newID, this)
     }
 
     async getChapterDetails(mangaId: string, chapterId: string): Promise<ChapterDetails> {
