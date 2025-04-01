@@ -23,7 +23,7 @@ import { URLBuilder } from './helper'
 const MW_DOMAIN = 'https://www.mangaworld.nz'
 
 export const MangaWorldInfo: SourceInfo = {
-    version: '0.2.1',
+    version: '0.2.2',
     name: 'MangaWorld',
     description: 'Extension that pulls manga from MangaWorld (0.9).',
     author: 'NmN',
@@ -83,6 +83,7 @@ export class MangaWorld implements SearchResultsProviding, MangaProviding, Chapt
         })
         const response = await this.requestManager.schedule(request, this.RETRIES)
         const $ = this.cheerio.load(response.data)
+        chapterId = chapterId.replace('/read/', '_read_')
         return this.parser.parseChapterDetails($, mangaId, chapterId)
     }
 
