@@ -466,7 +466,7 @@ const parser_1 = require("./parser");
 const helper_1 = require("./helper");
 const MW_DOMAIN = 'https://www.mangaworld.nz';
 exports.MangaWorldInfo = {
-    version: '0.1.2',
+    version: '0.1.3',
     name: 'MangaWorld',
     description: 'Extension that pulls manga from MangaWorld (0.9).',
     author: 'NmN',
@@ -516,7 +516,7 @@ class MangaWorld {
     }
     async getChapterDetails(mangaId, chapterId) {
         const request = App.createRequest({
-            url: `${this.baseUrl}/manga/${mangaId}/read/${chapterId}/?style=list`,
+            url: `${this.baseUrl}/manga/${chapterId}/?style=list`,
             method: 'GET',
         });
         const response = await this.requestManager.schedule(request, this.RETRIES);
@@ -735,7 +735,7 @@ class Parser {
         const arrChapters = $('.chapter').toArray().reverse();
         for (const item of arrChapters) {
             const href = $('a', item).attr('href') ?? '';
-            const regex = new RegExp(`/read/${mangaId}/`);
+            const regex = new RegExp(`/manga/${mangaId}/`);
             const match = href.match(regex);
             const id = match ? match[1] : '';
             //const name = $('a', item).attr('title') ?? ''
