@@ -80,7 +80,7 @@ export class Parser {
             const id = match ? match[1] : ''
             //const name = $('a', item).attr('title') ?? ''
             const chapNum = Number($('.d-inline-block', item).text().split(' ')[1]) ?? -1
-            const name = `${mangaId} - Capitolo ${chapNum} ${id}`
+            const name = `MiD${mangaId} - CN${chapNum} - ID${id} - match: ${match} - href: ${href} - regex: ${regex}`
             chapters.push(
                 App.createChapter({
                     id,
