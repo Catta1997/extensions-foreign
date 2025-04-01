@@ -103,7 +103,6 @@ export class Parser {
             if (!imageUrl) continue
             pages.push(imageUrl.trim())
         }
-        mangaId = `----- /${mangaId}/----/${id}/----`
         return App.createChapterDetails({
             id,
             mangaId,
