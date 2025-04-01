@@ -466,7 +466,7 @@ const parser_1 = require("./parser");
 const helper_1 = require("./helper");
 const MW_DOMAIN = 'https://www.mangaworld.nz';
 exports.MangaWorldInfo = {
-    version: '0.2.1',
+    version: '0.2.2',
     name: 'MangaWorld',
     description: 'Extension that pulls manga from MangaWorld (0.9).',
     author: 'NmN',
@@ -522,6 +522,7 @@ class MangaWorld {
         });
         const response = await this.requestManager.schedule(request, this.RETRIES);
         const $ = this.cheerio.load(response.data);
+        chapterId = chapterId.replace('/read/', '_read_');
         return this.parser.parseChapterDetails($, mangaId, chapterId);
     }
     async getTags() {
