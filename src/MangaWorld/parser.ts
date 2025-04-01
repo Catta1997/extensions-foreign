@@ -78,9 +78,9 @@ export class Parser {
             const regex = new RegExp(`/read/${mangaId}/([a-zA-Z0-9]+)`)
             const match = href.match(regex)
             const id = match ? match[1] : ''
-            const name = $('a', item).attr('title') ?? ''
+            //const name = $('a', item).attr('title') ?? ''
             const chapNum = Number($('.d-inline-block', item).text().split(' ')[1]) ?? -1
-
+            const name = `${mangaId} - Capitolo ${chapNum}`
             chapters.push(
                 App.createChapter({
                     id,
