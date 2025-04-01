@@ -69,8 +69,6 @@ export class Parser {
     }
 
     parseChapters($: any, mangaId: string, source: any): Chapter[] {
-        console.log(
-            `Parse chapter details for ${mangaId}`)
         const chapters: Chapter[] = []
         const arrChapters = $('.chapter').toArray().reverse()
         for (const item of arrChapters) {
@@ -80,9 +78,9 @@ export class Parser {
             const match = href.match(regex)
             const extractedPart = match ? match[1] : ''
             const id = extractedPart.replace('/read/', '_read_')
-            //const name = $('a', item).attr('title') ?? ''
+            const name = $('a', item).attr('title') ?? ''
             const chapNum = Number($('.d-inline-block', item).text().split(' ')[1]) ?? -1
-            const name = `MiD${mangaId} - CN${chapNum} - ID${id}`
+            const name = `MiD ${mangaId} - CN ${chapNum} - ID ${id}`
             chapters.push(
                 App.createChapter({
                     id,
