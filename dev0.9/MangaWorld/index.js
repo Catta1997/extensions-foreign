@@ -466,7 +466,7 @@ const parser_1 = require("./parser");
 const helper_1 = require("./helper");
 const MW_DOMAIN = 'https://www.mangaworld.nz';
 exports.MangaWorldInfo = {
-    version: '0.2.5',
+    version: '0.2.7',
     name: 'MangaWorld',
     description: 'Extension that pulls manga from MangaWorld (0.9).',
     author: 'NmN',
@@ -680,9 +680,9 @@ class Parser {
         const image = $('.thumb.mb-3.text-center img').attr('src') ?? '';
         const desc = $('#noidungm').text().trim() ?? '';
         let hentai = false;
+        const artists = [];
+        const authors = [];
         const data = {
-            author: '',
-            artist: '',
             genre: [],
             state: ''
         };
@@ -694,21 +694,17 @@ class Parser {
                     data.state = stateLink.text().trim();
             }
             else if (text.includes('Artist')) {
-                const artists = [];
                 $(obj).find('a').each((_, e) => artists.push($(e).text().trim()));
-                data.artist = artists.join(', ');
             }
             else if (text.includes('Autor')) {
-                const authors = [];
                 $(obj).find('a').each((_, e) => authors.push($(e).text().trim()));
-                data.author = authors.join(', ');
             }
             else if (text.includes('Gener')) {
                 $(obj).find('a').each((_, e) => data.genre.push($(e).text().trim()));
             }
         }
-        const author = data.author;
-        const artist = data.artist;
+        const author = authors.join(', ');
+        const artist = artists.join(', ');
         const status = data.state;
         const arrayTags = [];
         for (const tag in data.genre) {
