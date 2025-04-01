@@ -15,36 +15,31 @@ export class Parser {
         const image = $('.thumb.mb-3.text-center img').attr('src') ?? ''
         const desc = $('#noidungm').text().trim() ?? ''
         let hentai = false
+        const artists: string[] = []
+        const authors: string[] = []
         const data = {
-            author: '',
-            artist: '',
             genre: [] as string[],
             state: ''
         }
         for (const obj of $('.meta-data.row.px-1 .col-12, .meta-data.row.px-1 .col-12.col-md-6').toArray()) {
-            const text = $(obj).text().trim();
-
+            const text = $(obj).text().trim()
             if (text.includes('Stato')) {
                 const stateLink = $(obj).find('a').first()
                 if (stateLink.length) data.state = stateLink.text().trim()
             }
             else if (text.includes('Artist')) {
-                const artists: string[] = []
                 $(obj).find('a').each((_, e) => artists.push($(e).text().trim()))
-                data.artist = artists.join(', ')
             }
             else if (text.includes('Autor')) {
-                const authors: string[] = []
                 $(obj).find('a').each((_, e) => authors.push($(e).text().trim()))
-                data.author = authors.join(', ')
             }
             else if (text.includes('Gener')) {
                 $(obj).find('a').each((_, e) => data.genre.push($(e).text().trim()))
             }
         }
 
-        const author = data.author
-        const artist = data.artist
+        const author = authors.join(', ')
+        const artist = artists.join(', ')
         const status = data.state
         const arrayTags: Tag[] = []
 
