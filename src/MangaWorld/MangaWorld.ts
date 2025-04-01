@@ -23,7 +23,7 @@ import { URLBuilder } from './helper'
 const MW_DOMAIN = 'https://www.mangaworld.nz'
 
 export const MangaWorldInfo: SourceInfo = {
-    version: '0.1.3',
+    version: '0.1.4',
     name: 'MangaWorld',
     description: 'Extension that pulls manga from MangaWorld (0.9).',
     author: 'NmN',
