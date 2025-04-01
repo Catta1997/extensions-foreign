@@ -466,7 +466,7 @@ const parser_1 = require("./parser");
 const helper_1 = require("./helper");
 const MW_DOMAIN = 'https://www.mangaworld.nz';
 exports.MangaWorldInfo = {
-    version: '0.2.3',
+    version: '0.2.4',
     name: 'MangaWorld',
     description: 'Extension that pulls manga from MangaWorld (0.9).',
     author: 'NmN',
@@ -517,7 +517,7 @@ class MangaWorld {
     async getChapterDetails(mangaId, chapterId) {
         chapterId = chapterId.replace('_read_', '/read/');
         const request = App.createRequest({
-            url: `${this.baseUrl}/manga/${chapterId}/?style=list`,
+            url: `${this.baseUrl}/manga/${mangaId}/${chapterId}/?style=list`,
             method: 'GET',
         });
         const response = await this.requestManager.schedule(request, this.RETRIES);
@@ -732,7 +732,6 @@ class Parser {
         });
     }
     parseChapters($, mangaId, source) {
-        console.log(`Parse chapter details for ${mangaId}`);
         const chapters = [];
         const arrChapters = $('.chapter').toArray().reverse();
         for (const item of arrChapters) {
@@ -744,7 +743,7 @@ class Parser {
             const id = extractedPart.replace('/read/', '_read_');
             //const name = $('a', item).attr('title') ?? ''
             const chapNum = Number($('.d-inline-block', item).text().split(' ')[1]) ?? -1;
-            const name = `MiD${mangaId} - CN${chapNum} - ID${id}`;
+            const name = `MiD ${mangaId} - CN ${chapNum} - ID ${id}`;
             chapters.push(App.createChapter({
                 id,
                 name,
