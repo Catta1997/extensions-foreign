@@ -464,13 +464,13 @@ exports.MangaWorld = exports.MangaWorldInfo = void 0;
 const types_1 = require("@paperback/types");
 const parser_1 = require("./parser");
 const helper_1 = require("./helper");
-const MW_DOMAIN = 'https://www.mangaworld.ac';
+const MW_DOMAIN = 'https://www.mangaworld.nz';
 exports.MangaWorldInfo = {
-    version: '3.0.1',
+    version: '3.1.0',
     name: 'MangaWorld',
-    description: 'Extension that pulls manga from MangaWorld (0.8).',
+    description: 'Extension that pulls manga from MangaWorld (0.9).',
     author: 'NmN',
-    authorWebsite: 'http://github.com/pandeynmm',
+    authorWebsite: 'http://github.com/Catta1997',
     icon: 'icon.png',
     contentRating: types_1.ContentRating.EVERYONE,
     language: 'it',
@@ -521,7 +521,7 @@ class MangaWorld {
     }
     async getChapterDetails(mangaId, chapterId) {
         const request = App.createRequest({
-            url: `${this.baseUrl}/manga/${mangaId}/read/${chapterId}/?style=list`,
+            url: `${chapterId}/?style=list`,
             method: 'GET',
         });
         const response = await this.requestManager.schedule(request, this.RETRIES);
@@ -756,7 +756,6 @@ class Parser {
         return chapters;
     }
     parseChapterDetails($, mangaId, id) {
-        console.log(`Getting chapter details for ${mangaId} - ${id} - /manga/${mangaId}/read/${id}/?style=list`);
         const pages = [];
         for (const item of $('.col-12.text-center.position-relative img').toArray()) {
             const imageUrl = $(item).attr('src');
