@@ -511,17 +511,14 @@ class MangaWorld {
             method: 'GET'
         });
         const response = await this.requestManager.schedule(request, this.RETRIES);
-        const finalUrl = response.request?.url || `${this.baseUrl}/manga/${mangaId}`;
-        const match = finalUrl.match(/\/manga\/([^/]+)\/([^/?#]+)/);
-        if (match) {
-            mangaId = match[1];
-        }
+        //const finalUrl = response.request?.url || `${this.baseUrl}/manga/${mangaId}`
+        mangaId = response.request?.url || `${this.baseUrl}/manga/${mangaId}`;
         const $ = this.cheerio.load(response.data);
         return this.parser.parseChapters($, mangaId, this);
     }
     async getChapterDetails(mangaId, chapterId) {
         const request = App.createRequest({
-            url: `${chapterId}/?style=list`,
+            url: `${this.baseUrl}/manga/${mangaId}/read/${chapterId}/?style=list`,
             method: 'GET',
         });
         const response = await this.requestManager.schedule(request, this.RETRIES);
