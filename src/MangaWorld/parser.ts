@@ -75,7 +75,7 @@ export class Parser {
         const arrChapters = $('.chapter').toArray().reverse()
         for (const item of arrChapters) {
             const href = $('a', item).attr('href') ?? ''
-            const regex = new RegExp(`/read/${mangaId}/`)
+            const regex = new RegExp(`/manga/${mangaId}/`)
             const match = href.match(regex)
             const id = match ? match[1] : ''
             //const name = $('a', item).attr('title') ?? ''
