@@ -77,7 +77,7 @@ export class Parser {
             const href = $('a', item).attr('href') ?? ''
             const regex = new RegExp(`/manga/${mangaId}/`)
             const match = href.match(regex)
-            const id = match ? match[1] : ''
+            const id = '1'
             //const name = $('a', item).attr('title') ?? ''
             const chapNum = Number($('.d-inline-block', item).text().split(' ')[1]) ?? -1
             const name = `MiD${mangaId} - CN${chapNum} - ID${id} - match: ${match} - href: ${href} - regex: ${regex}`
