@@ -466,7 +466,7 @@ const parser_1 = require("./parser");
 const helper_1 = require("./helper");
 const MW_DOMAIN = 'https://www.mangaworld.nz';
 exports.MangaWorldInfo = {
-    version: '0.1.4',
+    version: '0.2.0',
     name: 'MangaWorld',
     description: 'Extension that pulls manga from MangaWorld (0.9).',
     author: 'NmN',
@@ -739,7 +739,7 @@ class Parser {
             const regex = /\/manga\/\d+\/([^/]+\/read\/[a-zA-Z0-9]+)/;
             const match = href.match(regex);
             const extractedPart = match ? match[1] : '';
-            const id = '1';
+            const id = extractedPart;
             //const name = $('a', item).attr('title') ?? ''
             const chapNum = Number($('.d-inline-block', item).text().split(' ')[1]) ?? -1;
             const name = `MiD${mangaId} - CN${chapNum} - ID${id} - match: ${match} - href: ${href} - regex: ${regex} - ${extractedPart}`;
