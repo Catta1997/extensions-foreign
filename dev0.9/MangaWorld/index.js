@@ -466,7 +466,7 @@ const parser_1 = require("./parser");
 const helper_1 = require("./helper");
 const MW_DOMAIN = 'https://www.mangaworld.nz';
 exports.MangaWorldInfo = {
-    version: '0.2.4',
+    version: '0.2.5',
     name: 'MangaWorld',
     description: 'Extension that pulls manga from MangaWorld (0.9).',
     author: 'NmN',
@@ -680,40 +680,43 @@ class Parser {
         const image = $('.thumb.mb-3.text-center img').attr('src') ?? '';
         const desc = $('#noidungm').text().trim() ?? '';
         let hentai = false;
-        let author = '';
-        let artist = '';
-        const id_arr = [];
-        const label_arr = [];
-        let i = 0;
-        for (const obj of $('.meta-data.row.px-1 .col-12').toArray()) {
-            switch (i) {
-                case 1:
-                    $(obj)
-                        .find('a')
-                        .each((_, e) => {
-                        label_arr.push($(e).text()) &
-                            id_arr.push($(e).attr('href')?.replace('https://www.mangaworld.nz/archive?genre=', '') ?? '');
-                    });
-                    break;
-                case 2:
-                    author = $(obj).text().trim().replace('Autore: ', '');
-                    break;
-                case 3:
-                    artist = $(obj).text().trim().replace('Artista: ', '');
-                    break;
+        const data = {
+            author: '',
+            artist: '',
+            genre: [],
+            state: ''
+        };
+        for (const obj of $('.meta-data.row.px-1 .col-12, .meta-data.row.px-1 .col-12.col-md-6').toArray()) {
+            const text = $(obj).text().trim();
+            if (text.includes('Stato')) {
+                const stateLink = $(obj).find('a').first();
+                if (stateLink.length)
+                    data.state = stateLink.text().trim();
             }
-            i++;
+            else if (text.includes('Artist')) {
+                const artists = [];
+                $(obj).find('a').each((_, e) => artists.push($(e).text().trim()));
+                data.artist = artists.join(', ');
+            }
+            else if (text.includes('Autor')) {
+                const authors = [];
+                $(obj).find('a').each((_, e) => authors.push($(e).text().trim()));
+                data.author = authors.join(', ');
+            }
+            else if (text.includes('Gener')) {
+                $(obj).find('a').each((_, e) => data.genre.push($(e).text().trim()));
+            }
         }
-        const status = 'Ongoing';
+        const author = data.author;
+        const artist = data.artist;
+        const status = data.state;
         const arrayTags = [];
-        for (const j in label_arr) {
-            const id = id_arr[j] ?? '';
-            const label = label_arr[j] ?? '';
-            if (['ADULTI', 'SMUT', 'MATURO', 'HENTAI'].includes(id.toUpperCase()))
+        for (const tag in data.genre) {
+            if (['ADULTI', 'SMUT', 'MATURO', 'HENTAI'].includes(tag.toUpperCase()))
                 hentai = true;
-            if (!id || !label)
+            if (!tag)
                 continue;
-            arrayTags.push({ id: id, label: label });
+            arrayTags.push({ id: tag, label: `https://www.mangaworld.nz/archive?genre=${tag}` });
         }
         const tagSections = [App.createTagSection({ id: '0', label: 'genres', tags: arrayTags.map((x) => App.createTag(x)) })];
         return App.createSourceManga({
@@ -736,14 +739,12 @@ class Parser {
         const arrChapters = $('.chapter').toArray().reverse();
         for (const item of arrChapters) {
             const href = $('a', item).attr('href') ?? '';
-            //const regex = new RegExp(`/manga/${mangaId}/`)
             const regex = /\/manga\/\d+\/([^/]+\/read\/[a-zA-Z0-9]+)/;
             const match = href.match(regex);
             const extractedPart = match ? match[1] : '';
             const id = extractedPart.replace('/read/', '_read_');
-            //const name = $('a', item).attr('title') ?? ''
+            const name = $('a', item).attr('title') ?? '';
             const chapNum = Number($('.d-inline-block', item).text().split(' ')[1]) ?? -1;
-            const name = `MiD ${mangaId} - CN ${chapNum} - ID ${id}`;
             chapters.push(App.createChapter({
                 id,
                 name,
