@@ -20,14 +20,14 @@ import {
 import { Parser } from './parser'
 import { URLBuilder } from './helper'
 
-const MW_DOMAIN = 'https://www.mangaworld.ac'
+const MW_DOMAIN = 'https://www.mangaworld.nz'
 
 export const MangaWorldInfo: SourceInfo = {
-    version: '3.0.1',
+    version: '3.1.0',
     name: 'MangaWorld',
-    description: 'Extension that pulls manga from MangaWorld (0.8).',
+    description: 'Extension that pulls manga from MangaWorld (0.9).',
     author: 'NmN',
-    authorWebsite: 'http://github.com/pandeynmm',
+    authorWebsite: 'http://github.com/Catta1997',
     icon: 'icon.png',
     contentRating: ContentRating.EVERYONE,
     language: 'it',
@@ -82,7 +82,7 @@ export class MangaWorld implements SearchResultsProviding, MangaProviding, Chapt
 
     async getChapterDetails(mangaId: string, chapterId: string): Promise<ChapterDetails> {
         const request = App.createRequest({
-            url: `${this.baseUrl}/manga/${mangaId}/read/${chapterId}/?style=list`,
+            url: `${chapterId}/?style=list`,
             method: 'GET',
         })
         const response = await this.requestManager.schedule(request, this.RETRIES)
