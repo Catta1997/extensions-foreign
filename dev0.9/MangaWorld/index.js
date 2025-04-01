@@ -466,7 +466,7 @@ const parser_1 = require("./parser");
 const helper_1 = require("./helper");
 const MW_DOMAIN = 'https://www.mangaworld.nz';
 exports.MangaWorldInfo = {
-    version: '0.2.7',
+    version: '0.2.8',
     name: 'MangaWorld',
     description: 'Extension that pulls manga from MangaWorld (0.9).',
     author: 'NmN',
@@ -686,7 +686,7 @@ class Parser {
             genre: [],
             state: ''
         };
-        for (const obj of $('.meta-data.row.px-1 .col-12, .meta-data.row.px-1 .col-12.col-md-6').toArray()) {
+        for (const obj of $('.meta-data.row.px-1 .col-12').toArray()) {
             const text = $(obj).text().trim();
             if (text.includes('Stato')) {
                 const stateLink = $(obj).find('a').first();
