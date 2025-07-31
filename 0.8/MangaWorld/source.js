@@ -746,7 +746,7 @@ var _Sources = (() => {
         switch (i) {
           case 1:
             $(obj).find("a").each((_, e) => {
-              label_arr.push($(e).text()) & id_arr.push($(e).attr("href")?.replace("https://www.mangaworld.nz/archive?genre=", "") ?? "");
+              label_arr.push($(e).text()) & id_arr.push($(e).attr("href")?.replace("https://www.mangaworld.cx/archive?genre=", "") ?? "");
             });
             break;
           case 2:
