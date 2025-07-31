@@ -979,9 +979,9 @@ var _Sources = (() => {
   };
 
   // src/MangaWorld/MangaWorld.ts
-  var MW_DOMAIN = "https://www.mangaworld.nz";
+  var MW_DOMAIN = "https://www.mangaworld.cx";
   var MangaWorldInfo = {
-    version: "3.0.2",
+    version: "3.0.3",
     name: "MangaWorld",
     description: "Fixed Extension that pulls manga from MangaWorld (0.8).",
     author: "NmN",
