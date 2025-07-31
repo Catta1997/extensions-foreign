@@ -20,10 +20,10 @@ import {
 import { Parser } from './parser'
 import { URLBuilder } from './helper'
 
-const MW_DOMAIN = 'https://www.mangaworld.nz'
+const MW_DOMAIN = 'https://www.mangaworld.cx'
 
 export const MangaWorldInfo: SourceInfo = {
-    version: '3.0.2',
+    version: '3.0.3',
     name: 'MangaWorld',
     description: 'Fixed Extension that pulls manga from MangaWorld (0.8).',
     author: 'NmN',
